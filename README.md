@@ -7,15 +7,16 @@ OptionsResolver
 
 #####**Version 1.0**
 
-For use in `public static void main(String[] args)` methods. Throws `RuntimeException`s to fail early.
+A command line helper for use in e.g. `public static void main(String[] args)` methods. 
+Throws `RuntimeExceptions` to fail early.
 
-Reads options with the following precedence
+Tries to read options in the following order from
 
 1. System environment `System.getenv(...)`
 2. VM argument `System.getProperty(...)`
-3. `String[] args`, you pass e.g. from `public static void main(String[] args)`
+3. A `String[] args` passed e.g. from `public static void main(String[] args)`
 
-###Examples:
+###Examples
 
 ####Setting an option with an integer argument (a string is quite the same):
  
@@ -35,7 +36,7 @@ Reads options with the following precedence
 #####also mixed with a boolean option
     java com.example.Main -tp 80
  
-####Setting a boolean option flag:
+####Setting a boolean option flag
  
 #####System environment
     export TEST=true

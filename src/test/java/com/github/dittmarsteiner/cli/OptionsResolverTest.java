@@ -41,6 +41,22 @@ public class OptionsResolverTest {
         assertNotNull(port);
         assertEquals(8080, port.intValue());
         
+        port = OptionsResolver.resolve(null, ' ', new String[]{"-p", "80"}, 8080);
+        assertNotNull(port);
+        assertEquals(8080, port.intValue());
+        
+        port = OptionsResolver.resolve(null, 'p', new String[]{"-p", "80"}, 8080);
+        assertNotNull(port);
+        assertEquals(80, port.intValue());
+        
+        port = OptionsResolver.resolve("PORT", ' ', new String[]{"-p", "80"}, 8080);
+        assertNotNull(port);
+        assertEquals(8080, port.intValue());
+        
+        port = OptionsResolver.resolve("PORT", ' ', new String[]{"--port", "80"}, 8080);
+        assertNotNull(port);
+        assertEquals(80, port.intValue());
+        
         String s = OptionsResolver.resolve("ARG", 'a', new String[]{"-a", "hello"}, "error");
         assertNotNull(s);
         assertEquals("hello", s);
@@ -67,7 +83,12 @@ public class OptionsResolverTest {
         b = OptionsResolver.resolve("ARG", 'a', new String[]{"--arg", "true"}, false);
         assertNotNull(b);
         assertEquals(true, b.booleanValue());
-        b = OptionsResolver.resolve("ARG", 'a', new String[]{"--arg"}, false);
+        b = OptionsResolver.resolve("no-ff", 'a', new String[]{"--no-ff"}, false);
+        assertNotNull(b);
+        // Note: won't work as a system env variable:
+        System.setProperty("no-ff", "true");
+        assertEquals(true, b.booleanValue());
+        b = OptionsResolver.resolve("no-ff", 'a', new String[]{}, false);
         assertNotNull(b);
         assertEquals(true, b.booleanValue());
         

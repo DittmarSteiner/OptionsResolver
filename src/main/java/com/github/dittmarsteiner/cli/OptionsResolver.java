@@ -22,22 +22,21 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 /**
- * For use in <code>public static void main(String[] args)<7code> methods. 
- * Throws `RuntimeException`s to fail early.
+ * A command line helper for use in e.g. <code>public static void main(String[] args)</code> methods. 
+ * Throws <code>RuntimeException</code>s to fail early.
  * 
  * <p>
- * Reads options with the following precedence
+ * Tries to read options in the following order from
  * <ol>
  * <li>System environment <code><b>System.getenv(...)</b></code></li>
  * <li>VM argument <code><b>System.getProperty(...)</b></code></li>
- * <li><code><b>String[] args</b>, you pass e.g. from </code><code>public static void main(String[] args)</code></li>
+ * <li>A <code><b>String[] args</b> passed   e.g. from </code>public static void main(String[] args)</code></li>
  * </ol>
  * 
- * <p>
- * Examples:
- * <p>
- * Setting an option with an integer argument (a string is quite the same):
- * <br/>
+ * <h3>Examples</h3>
+ * 
+ * <h4>Setting an option with an integer argument (other types are quite the same)</h4>
+ * 
  * System environment
  * <pre>
  * $ export PORT=80
@@ -64,9 +63,8 @@ import java.lang.reflect.InvocationTargetException;
  * $ java com.example.Main -tp 80
  * </pre>
  * 
- * <p>
- * Setting a boolean option flag:
- * <br/>
+ * <h4>Setting a boolean option flag</h4>
+ * 
  * System environment
  * <pre>
  * $ export TEST=true
@@ -110,11 +108,23 @@ public class OptionsResolver {
     
     /**
      * 
-     * @param key a {@link String} made lower case for program argument <code>args[]</code>
-     * @param flag a single characte, case sensitive
-     * @param args e.g. from <code>public static void main(<b>String[] args</b>)</code>
+     * @param key
+     *            a {@link String} made lower case for program argument
+     *            <code>args[]</code>
+     * @param flag
+     *            a single character, case sensitive, Unicode letters and digits
+     *            will be acctepted (see {@link Character#isLetter(char)} and
+     *            {@link Character#isDigit(char)})
+     * @param args
+     *            e.g. from
+     *            <code>public static void main(<b>String[] args</b>)</code>
      * @param defaultValue
-     * @return
+     *            Defines also the return type. Works fine with {@link Long},
+     *            {@link Integer}, {@link Double}, {@link Float},
+     *            {@link Boolean} and {@link String}, and all classes with a 
+     *            constructor <code><i>&lt;Type&gt;</i>(String value)</code>
+     * 
+     * @return the resolved value if found, else the <code>defaultValue</code>
      */
     public static <T> T resolve(String key, char flag, String[] args,
             T defaultValue) {
@@ -153,8 +163,8 @@ public class OptionsResolver {
         }
 
         // flag (boolean)
-        if (args != null && (flag >= 'a' && flag <= 'z')
-                || (flag >= 'A' && flag <= 'Z')) {
+        if (args != null && 
+                (Character.isLetter(flag) || Character.isDigit(flag))) {
             String f = new String(new char[] { flag });
             for (int i = 0; i < args.length; i++) {
                 String arg = args[i];
