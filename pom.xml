@@ -4,7 +4,8 @@
 
     <groupId>com.github.dittmarsteiner</groupId>
     <artifactId>optionsresolver</artifactId>
-    <version>1.0</version>
+    <version>1.0-SNAPSHOT</version>
+    
     <name>OptionsResolver</name>
     <description>
         Resolves CLI options in the following order
@@ -12,6 +13,18 @@
         2. System.getProperty(key)
         3. main String[] args
     </description>
+
+    <licenses>
+        <license>
+            <name>ISC License</name>
+            <url>http://opensource.org/licenses/isc-license.txt</url>
+        </license>
+    </licenses>
+
+    <organization>
+        <name>Dittmar Steiner</name>
+        <url>http://dittmarsteiner.com</url>
+    </organization>
 
     <developers>
         <developer>
@@ -22,12 +35,60 @@
         </developer>
     </developers>
     
+    <scm>
+        <connection>scm:git:https://github.com/dittmarsteiner/optionsresolver.git</connection>
+        <developerConnection>scm:git:git@github.com:dittmarsteiner/optionsresolver.git</developerConnection>
+        <url>https://github.com/dittmarsteiner/optionsresolver</url>
+        <tag>1.0</tag>
+    </scm>
+
+    <distributionManagement>
+        <repository>
+            <id>bintray</id>
+            <url>https://api.bintray.com/maven/dittmarsteiner/github-maven/optionsresolver</url>
+        </repository>
+    </distributionManagement>
+    
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
     </properties>
 
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
     <build>
+        <defaultGoal>package</defaultGoal>
+
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -38,6 +99,7 @@
                 </configuration>
             </plugin>
 
+            <!-- $ mvn javadoc:javadoc -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -59,6 +121,16 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <plugin>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.1</version>
+                <configuration>
+                    <useReleaseProfile>false</useReleaseProfile>
+                    <releaseProfiles>release</releaseProfiles>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                </configuration>
+            </plugin>            
         </plugins>
 
         <resources>
@@ -67,6 +139,13 @@
                 <filtering>true</filtering>
             </resource>
         </resources>
+
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>
     </build>
 
     <dependencies>
