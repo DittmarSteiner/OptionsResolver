@@ -2,7 +2,7 @@
  * ------------------------------------------------------------------------------
  * ISC License http://opensource.org/licenses/isc-license.txt
  * ------------------------------------------------------------------------------
- * Copyright (c) 2015, Dittmar Steiner <dittmar.steiner@gmail.com>
+ * Copyright (c) 2016, Dittmar Steiner <dittmar.steiner@gmail.com>
  *
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -35,7 +35,7 @@ import java.lang.reflect.InvocationTargetException;
  * 
  * <h3>Examples</h3>
  * 
- * <h4>Setting an option with an integer argument (other types are quite the same)</h4>
+ * <h4>Setting an option with an integer argument (long, float, double, String are quite the same)</h4>
  * 
  * System environment
  * <pre>
