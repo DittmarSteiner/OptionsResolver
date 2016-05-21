@@ -44,13 +44,12 @@ import java.lang.reflect.InvocationTargetException;
 public class OptionsResolver {
     
     /**
-     * Constructor not needed, so hide
-     */
-    private OptionsResolver() {
-    }
-    
-    /**
      * 
+     * @param defaultValue
+     *            Defines also the return type. Works fine with {@link Long},
+     *            {@link Integer}, {@link Double}, {@link Float},
+     *            {@link Boolean} and {@link String}, and any classes with a 
+     *            constructor <code><i>&lt;Type&gt;</i>(String value)</code>
      * @param key
      *            a {@link String} made lower case for program argument
      *            <code>args[]</code>
@@ -61,16 +60,10 @@ public class OptionsResolver {
      * @param args
      *            e.g. from
      *            <code>public static void main(<b>String[] args</b>)</code>
-     * @param defaultValue
-     *            Defines also the return type. Works fine with {@link Long},
-     *            {@link Integer}, {@link Double}, {@link Float},
-     *            {@link Boolean} and {@link String}, and all classes with a 
-     *            constructor <code><i>&lt;Type&gt;</i>(String value)</code>
-     * 
      * @return the resolved value if found, else the <code>defaultValue</code>
      */
-    public static <T> T resolve(String key, char flag, String[] args,
-            T defaultValue) {
+    public static <T> T resolve(T defaultValue, String key, char flag,
+            String... args) {
         // System env, property
         if (key != null) {
             String[] values = { System.getenv(key), System.getProperty(key) };
