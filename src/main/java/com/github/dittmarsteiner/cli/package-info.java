@@ -17,6 +17,7 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 /**
+ * Command line tools.
  * 
  * @author <a href="mailto:dittmar.steiner@gmail.com">Dittmar Steiner</a>
  */

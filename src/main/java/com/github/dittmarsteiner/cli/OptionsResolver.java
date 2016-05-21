@@ -22,77 +22,20 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 /**
- * A command line helper for use in e.g. <code>public static void main(String[] args)</code> methods. 
- * Throws <code>RuntimeException</code>s to fail early.
- * 
+ * A command line helper for use in e.g.
+ * <code>public static void main(String[] args)</code>. <br/>
+ * Thus it throws <code>RuntimeExceptions</code> to fail early.
  * <p>
- * Tries to read options in the following order from
+ * An <code>OptionsResolver</code> tries to read options in the following order
+ * from
  * <ol>
- * <li>System environment <code><b>System.getenv(...)</b></code></li>
- * <li>VM argument <code><b>System.getProperty(...)</b></code></li>
- * <li>A <code><b>String[] args</b> passed   e.g. from </code>public static void main(String[] args)</code></li>
+ * <li>System environment <code>System.getenv(...)</code>
+ * <li>VM argument <code>System.getProperty(...)</code>
+ * <li>A <code>String[]</code> passed from e.g. <code>public static void
+ * main(String[] args)</code>
  * </ol>
  * 
- * <h3>Examples</h3>
- * 
- * <h4>Setting an option with an integer argument (long, float, double, String are quite the same)</h4>
- * 
- * System environment
- * <pre>
- * $ export PORT=80
- * $ java com.example.Main
- * </pre>
- * 
- * or VM argument
- * <pre>
- * $ java -DPORT=80 com.example.Main
- * </pre>
- * 
- * or program named argument
- * <pre>
- * $ java com.example.Main --port 80
- * </pre>
- * 
- * or program argument
- * <pre>
- * $ java com.example.Main -p 80
- * </pre>
- * 
- * also mixed with a boolean option
- * <pre>
- * $ java com.example.Main -tp 80
- * </pre>
- * 
- * <h4>Setting a boolean option flag</h4>
- * 
- * System environment
- * <pre>
- * $ export TEST=true
- * $ java com.example.Main
- * </pre>
- * 
- * or VM option
- * <pre>
- * $ java -DTEST=true com.example.Main
- * </pre>
- * 
- * or program named argument
- * <pre>
- * $ java com.example.Main --test
- * </pre>
- * 
- * or program argument (flag)
- * <pre>
- * $ java com.example.Main -t
- * </pre>
- * 
- * also mixed with another option with argument
- * <pre>
- * $ java com.example.Main -tp 80
- * </pre>
- * 
- * <p>
- * <b>For code examples see {@link com.github.dittmarsteiner.cli.OptionsResolverTest}</b>
+ * For more code examples, please see {@link OptionsResolverTest}
  * 
  * @version 1.0
  * @see OptionsResolverTest

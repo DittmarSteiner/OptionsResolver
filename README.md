@@ -1,65 +1,77 @@
-OptionsResolver
-===============
+# OptionsResolver
 
-###Hint
-**Before you checkout the project, run `mvn install` and reference it in your Maven or Gradle project...**  
-***→ just copy the one class into your project!***
+**Version 1.0**
 
-#####**Version 1.0**
+*Hey—why not just copy* `com.github.dittmarsteiner.cli.OptionsResolver` *into your project?* ;-)
 
-A command line helper for use in e.g. `public static void main(String[] args)` methods. 
-Throws `RuntimeExceptions` to fail early.
+##Description
+A command line helper for use in e.g. `public static void main(String[] args)`. 
+Thus it throws `RuntimeExceptions` to fail early.
 
-Tries to read options in the following order from
+An `OptionsResolver` tries to read options in the following order from
 
 1. System environment `System.getenv(...)`
 2. VM argument `System.getProperty(...)`
-3. A `String[] args` passed e.g. from `public static void main(String[] args)`
+3. A `String[]` passed from e.g. `public static void main(String[] args)`
 
-###Examples
+##Examples
 
-####Setting an option with an integer argument (a string is quite the same):
+
+###Using an option with an `Integer` argument 
+*(Using a `String` is quite the same)*
+```lang:java
+//  new String[]{"-p"} could be any String[] like main(args)
+Integer port = OptionsResolver.resolve("PORT", 'p', new String[]{"-p"}, 8080);
+```
+*For more code examples, please see `OptionsResolverTest`*
  
-#####System environment
+####System environment
     export PORT=80
     java com.example.Main
  
-#####or VM argument
+####or VM argument
     java -DPORT=80 com.example.Main
  
-#####or program named argument
+####or program named argument
     java com.example.Main --port 80
  
-#####or program argument
+####or simple program argument
     java com.example.Main -p 80
  
-#####also mixed with a boolean option
+####also mixed simple arguments with a `boolean` option
     java com.example.Main -tp 80
  
-####Setting a boolean option flag
+###Using a `boolean` option flag
+```lang:java
+//  new String[]{"-t"} could be any String[] like main(args)
+boolean test = OptionsResolver.resolve("TEST", 't', new String[]{"-t"}, false);
+```
+*For more code examples, please see `OptionsResolverTest`*
+
+**Note:** Anything else but `true`  will result in `false` or the default if not found.
  
-#####System environment
+####System environment
     export TEST=true
     java com.example.Main
  
-#####or VM option
+####or VM option
     java -DTEST=true com.example.Main
  
-#####or program named argument
+####or program named argument
     java com.example.Main --test
  
 ####or program argument (flag)
     java com.example.Main -t
  
-#####also mixed with another option with argument
+####also mixed with another option with argument
     java com.example.Main -tp 80
  
-**For code examples see `com.github.dittmarsteiner.cli.OptionsResolverTest`**
+**For more code examples, please see `com.github.dittmarsteiner.cli.OptionsResolverTest`**
 
     ------------------------------------------------------------------------------
     ISC License http://opensource.org/licenses/isc-license.txt
     ------------------------------------------------------------------------------
-    Copyright (c) 2014, Dittmar Steiner <dittmar.steiner@googlemail.com>
+    Copyright (c) 2016, Dittmar Steiner <dittmar.steiner@gmail.com>
     
     Permission to use, copy, modify, and/or distribute this software for any
     purpose with or without fee is hereby granted, provided that the above
