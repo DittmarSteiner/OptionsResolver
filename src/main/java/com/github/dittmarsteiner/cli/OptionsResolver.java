@@ -62,7 +62,7 @@ public class OptionsResolver {
      *            <code>public static void main(<b>String[] args</b>)</code>
      * @return the resolved value if found, else the <code>defaultValue</code>
      */
-    public static <T> T resolve(T defaultValue, String key, char flag,
+    public static <T> T resolve(T defaultValue, String key, Character flag,
             String... args) {
         // System env, property
         if (key != null) {
@@ -99,7 +99,7 @@ public class OptionsResolver {
         }
 
         // flag (boolean)
-        if (args != null && 
+        if (args != null && flag != null &&
                 (Character.isLetter(flag) || Character.isDigit(flag))) {
             String f = new String(new char[] { flag });
             for (int i = 0; i < args.length; i++) {
@@ -163,7 +163,7 @@ public class OptionsResolver {
     public static class MissingArgumentException extends OptionsException {
         private static final long serialVersionUID = -407287810929352404L;
 
-        public MissingArgumentException(String key, char flag,
+        public MissingArgumentException(String key, Character flag,
                 ArrayIndexOutOfBoundsException cause) {
             super(String.format("Missing argument for --%s resp. -%s", key,
                     flag), cause);
@@ -173,7 +173,7 @@ public class OptionsResolver {
     public static class NotANumberException extends OptionsException {
         private static final long serialVersionUID = 1800421190600255886L;
 
-        public NotANumberException(String key, char flag,
+        public NotANumberException(String key, Character flag,
                 NumberFormatException cause) {
             super(String.format("Agrument is not a number for --%s resp. -%s",
                     key, flag), cause);
