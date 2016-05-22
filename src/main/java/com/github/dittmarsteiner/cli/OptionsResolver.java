@@ -81,7 +81,7 @@ public class OptionsResolver {
 
         // named argument
         if (key != null && args != null) {
-            String n = String.format("--%s", key.replaceFirst("$\\-+", "")
+            String n = String.format("--%s", key.replaceFirst("$\\-{1,2}", "")
                     .toLowerCase());
             for (int i = 0; i < args.length; i++) {
                 if (n.equals(args[i])) {

@@ -89,7 +89,11 @@ public class OptionsResolverTest {
         
         port = OptionsResolver.resolve(8080, "PORT", null, "---port", "80");
         assertNotNull(port);
-        assertEquals(80, port.intValue()); // ---port does not match
+        assertEquals(8080, port.intValue()); // ---port does not match
+        
+        port = OptionsResolver.resolve(8080, "PORT", 'p', "---port", "80");
+        assertNotNull(port);
+        assertEquals(8080, port.intValue()); // ---port does not match
         
         port = OptionsResolver.resolve(8080, "PORT", null, "--+port", "80");
         assertNotNull(port);
@@ -145,8 +149,9 @@ public class OptionsResolverTest {
         
         // $ export FF=true # or xyz or what ever you like...
         if (System.getenv("FF") != null) {
-            System.out.println(String.format("    System env found: FF=%s", System.getenv("FF")));
-            Boolean inverted = new Boolean(!Boolean.valueOf(System.getenv("FF")));
+            System.out.println(String.format(
+                    "    System env found: FF=%s", System.getenv("FF")));
+            Boolean inverted = !Boolean.valueOf(System.getenv("FF"));
             b = OptionsResolver.resolve(false, "FF", 
                     'f', "-f", inverted.toString(), "--ff", inverted.toString());
             assertEquals(Boolean.valueOf(System.getenv("FF")), b); // env matched
