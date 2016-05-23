@@ -48,17 +48,17 @@ public class OptionsResolver {
      * @param defaultValue
      *            Defines also the return type. Works fine with {@link Long},
      *            {@link Integer}, {@link Double}, {@link Float},
-     *            {@link Boolean} and {@link String}, and any classes with a 
+     *            {@link Boolean} and {@link String}, and any classes with a
      *            constructor <code><i>&lt;Type&gt;</i>(String value)</code>
      * @param key
-     *            a {@link String} made lower case for program argument
-     *            <code>args[]</code>
+     *            Case-sensitive for System env or System property, but made
+     *            lower case for program argument like <code>args[]</code>
      * @param flag
      *            a single character, case sensitive, Unicode letters and digits
      *            will be acctepted (see {@link Character#isLetter(char)} and
      *            {@link Character#isDigit(char)})
      * @param args
-     *            e.g. from
+     *            a list with 0..n entries or from e.g.
      *            <code>public static void main(<b>String[] args</b>)</code>
      * @return the resolved value if found, else the <code>defaultValue</code>
      */

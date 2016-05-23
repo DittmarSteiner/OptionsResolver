@@ -27,18 +27,53 @@ import com.github.dittmarsteiner.cli.OptionsResolver;
  * @author <a href="mailto:dittmar.steiner@gmail.com">Dittmar Steiner</a>
  */
 public class OptionsResolverTest {
+    
+    /**
+     * These simple examples demonstrates the usage of main(String[] args)
+     */
+    @Test
+    public void testOptionsResolverExamples() {
+        // int -----------------------------------------------------------------
+        // simple arg
+        String[] args = new String[] {"-n", "80"};
+        int num = OptionsResolver.resolve(8080, null, 'n', args);
+        assertNotNull(num);
+        assertEquals(80, num);
+        
+        // named arg
+        args = new String[] {"--some_number", "80"};
+        num = OptionsResolver.resolve(8080, "some_number", null, args);
+        assertNotNull(num);
+        assertEquals(80, num);
+        
+        // java -Dsome_number=80 ... // Sytem property
+        System.setProperty("some_number", "80");
+        num = OptionsResolver.resolve(8080, "some_number", null);
+        assertNotNull(num);
+        assertEquals(80, num);
+        
+        // boolean -------------------------------------------------------------
+        // simple arg
+        args = new String[] {"-f"};
+        boolean flag = OptionsResolver.resolve(false, null, 'f', args);
+        assertNotNull(flag);
+        assertTrue(flag);
+        
+        // named arg
+        args = new String[] {"--flag"};
+        flag = OptionsResolver.resolve(false, "flag", null, args);
+        assertNotNull(flag);
+        assertTrue(flag);
+        
+        // java -Dflag=true ... // Sytem property
+        System.setProperty("flag", "true");
+        flag = OptionsResolver.resolve(false, "flag", null);
+        assertNotNull(flag);
+        assertTrue(flag);
+    }
 
 	@Test
 	public void testGenericResolver() {
-        
-        // ---------------------------------------------------------------------
-        // this example demonstrates the usage of main(String[] args)
-        String[] args = {"-n", "80", "--somenumber", "80"};
-        Integer num = OptionsResolver.resolve(80, "SOMENUMBER", 'n', args);
-        assertNotNull(num);
-        assertEquals(80, num.intValue());
-        // ---------------------------------------------------------------------
-        
 	    // flag/single char
         Object o = OptionsResolver.resolve(null, "ARG", 'a', "-a", "1000.0");
         assertNull(o); // defaultValue was null

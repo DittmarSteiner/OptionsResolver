@@ -1,4 +1,4 @@
-# OptionsResolver
+# CLI OptionsResolver
 
 **Version 1.0**
 
@@ -6,7 +6,10 @@
 
 ##Description
 A command line helper for use in e.g. `public static void main(String[] args)`. 
-Thus it throws `RuntimeExceptions` to fail early.
+Thus it throws `RuntimeExceptions` to fail early.  
+Reporting or configurable help is not supported, which is not a goal of this tool class.  
+It is your responsibility if an option is not found or wrongly formating like `---option 123`.
+This is the domain of the comprehensive [Apache Commons CLI](https://commons.apache.org/proper/commons-cli/) or other libs.
 
 An `OptionsResolver` tries to read options in the following order from
 
@@ -14,16 +17,17 @@ An `OptionsResolver` tries to read options in the following order from
 2. VM argument `System.getProperty(...)`
 3. A `String[]` passed from e.g. `public static void main(String[] args)`
 
-##Examples
+The first match wins otherwise the defaullt value will be returned.
 
+##Examples
 
 ###Using an option with an `Integer` argument 
 
 *(Using a `String` is quite the same)*
 
 ```lang:java
-//  new String[]{"-p"} could be any String[] like main(args)
-Integer port = OptionsResolver.resolve("PORT", 'p', new String[]{"-p"}, 8080);
+// you could also pass args from main(String[] args) as 4th param ...
+Integer port = OptionsResolver.resolve(8080, "PORT", 'p', "-p", "80");
 ```
 
 *For more code examples, please see `OptionsResolverTest`*
@@ -52,8 +56,8 @@ Integer port = OptionsResolver.resolve("PORT", 'p', new String[]{"-p"}, 8080);
 ###Using a `boolean` option flag
 
 ```lang:java
-//  new String[]{"-t"} could be any String[] like main(args)
-Boolean test = OptionsResolver.resolve("TEST", 't', new String[]{"-t"}, false);
+// you could also pass args from main(String[] args) as 4th param ...
+Boolean test = OptionsResolver.resolve(false, "TEST", 't', "-t");
 ```
 
 *For more code examples, please see `OptionsResolverTest`*
