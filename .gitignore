@@ -1,12 +1,17 @@
-bin
-target
 *~
+~*
+.DS_Store
+
+# Maven
+target
 
 # Eclipse
 .settings
 .classpath
 .project
+bin
 
 # IntelliJ IDEA
 .idea
 *.iml
+out
