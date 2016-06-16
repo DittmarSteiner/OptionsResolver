@@ -20,7 +20,6 @@ package com.github.dittmarsteiner.cli;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
-import com.github.dittmarsteiner.cli.OptionsResolver;
 
 /**
  * @see OptionsResolver
@@ -46,7 +45,7 @@ public class OptionsResolverTest {
         assertNotNull(num);
         assertEquals(80, num);
         
-        // java -Dsome_number=80 ... // Sytem property
+        // java -Dsome_number=80 ... // System property
         System.setProperty("some_number", "80");
         num = OptionsResolver.resolve(8080, "some_number", null);
         assertNotNull(num);
@@ -65,7 +64,7 @@ public class OptionsResolverTest {
         assertNotNull(flag);
         assertTrue(flag);
         
-        // java -Dflag=true ... // Sytem property
+        // java -Dflag=true ... // System property
         System.setProperty("flag", "true");
         flag = OptionsResolver.resolve(false, "flag", null);
         assertNotNull(flag);
@@ -152,7 +151,7 @@ public class OptionsResolverTest {
         
         Double d = OptionsResolver.resolve(0d, "ARG", 'a', "-a", "1.1");
         assertNotNull(d);
-        assertEquals(1.1d, d.doubleValue(), 0d); // double -a matched
+        assertEquals(1.1d, d, 0d); // double -a matched
         
         float f = OptionsResolver.resolve(0f, "ARG", 'a', "-a", "1.1");
         assertNotNull(f);
@@ -198,7 +197,7 @@ public class OptionsResolverTest {
         // mixed/complex
         b = OptionsResolver.resolve(false, "ARG", 'a', "-ab", "bbb", "--xxx", "yyy");
         assertNotNull(b);
-        assertEquals(true, b.booleanValue()); // -a present
+        assertEquals(true, b); // -a present
         String bbb = OptionsResolver.resolve("error", "BBB", 'b', "-ab", "bbb", "--xxx", "yyy");
         assertNotNull(bbb);
         assertEquals("bbb", bbb); // -a=bbb
@@ -220,11 +219,11 @@ public class OptionsResolverTest {
         
         d = OptionsResolver.resolve(0d, "ARG", 'a', "--arg", "1.1");
         assertNotNull(d);
-        assertEquals(1.1d, d.doubleValue(), 1.0d); // Double
+        assertEquals(1.1d, d, 1.0d); // Double
         
         b = OptionsResolver.resolve(false, "ARG", 'a', "--arg", "true");
         assertNotNull(b);
-        assertEquals(true, b.booleanValue()); // boolean
+        assertEquals(true, b); // boolean
         
         // system property
         o = OptionsResolver.resolve(null, "ARG", 'a');
@@ -247,12 +246,12 @@ public class OptionsResolverTest {
         System.setProperty("ARG", "1.1");
         d = OptionsResolver.resolve(0d, "ARG", 'a');
         assertNotNull(d);
-        assertEquals(1.1d, d.doubleValue(), 1.0d); // Double
+        assertEquals(1.1d, d, 1.0d); // Double
         
         System.setProperty("ARG", "true");
         b = OptionsResolver.resolve(false, "ARG", 'a');
         assertNotNull(b);
-        assertEquals(true, b.booleanValue()); // Boolean
+        assertEquals(true, b); // Boolean
         
         // precedence
         String p = OptionsResolver.resolve("default", "PRECEDENCE", 'p');

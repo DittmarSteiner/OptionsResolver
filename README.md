@@ -8,7 +8,7 @@
 A command line helper for use in e.g. `public static void main(String[] args)`. 
 Thus it throws `RuntimeExceptions` to fail early.  
 Reporting or configurable help is not supported, which is not a goal of this tool class.  
-It is your responsibility if an option is not found or wrongly formating like `---option 123`.
+It is your responsibility if an option is not found or wrongly formatting like `---option 123`.
 This is the domain of the comprehensive [Apache Commons CLI](https://commons.apache.org/proper/commons-cli/) or other libs.
 
 An `OptionsResolver` tries to read options in the following order from
@@ -17,7 +17,7 @@ An `OptionsResolver` tries to read options in the following order from
 2. VM argument `System.getProperty(...)`
 3. A `String[]` passed from e.g. `public static void main(String[] args)`
 
-The first match wins otherwise the defaullt value will be returned.
+The first match wins otherwise the default value will be returned.
 
 ##Examples
 
