@@ -35,10 +35,9 @@ import java.lang.reflect.InvocationTargetException;
  * main(String[] args)</code>
  * </ol>
  * 
- * For more code examples, please see {@link OptionsResolverTest}
+ * For more code examples, please see OptionsResolverTest
  * 
  * @version 1.0
- * @see OptionsResolverTest
  * @author <a href="mailto:dittmar.steiner@gmail.com">Dittmar Steiner</a>
  */
 public class OptionsResolver {
@@ -55,7 +54,7 @@ public class OptionsResolver {
      *            lower case for program argument like <code>args[]</code>
      * @param flag
      *            a single character, case sensitive, Unicode letters and digits
-     *            will be acctepted (see {@link Character#isLetter(char)} and
+     *            will be accepted (see {@link Character#isLetter(char)} and
      *            {@link Character#isDigit(char)})
      * @param args
      *            a list with 0..n entries or from e.g.
@@ -107,7 +106,7 @@ public class OptionsResolver {
                 boolean match = (defaultValue instanceof Boolean) ? arg
                         .contains(f) : arg.endsWith(f);
 
-                if (arg != null && arg.startsWith("-") && !arg.startsWith("--")
+                if (arg.startsWith("-") && !arg.startsWith("--")
                         && match) {
                     try {
                         return getValue(args, i, defaultValue);
@@ -131,31 +130,31 @@ public class OptionsResolver {
             return (T) Boolean.TRUE;
         }
 
-        return (T) getValue(args[++index], defaultValue);
+        return getValue(args[++index], defaultValue);
     }
 
     @SuppressWarnings("unchecked")
     private static <T> T getValue(String value, T defaultValue) {
         if (defaultValue != null) {
             try {
-                Constructor<? extends Object> constructor = defaultValue
+                Constructor<?> constructor = defaultValue
                         .getClass().getConstructor(String.class);
                 return (T) constructor.newInstance(value);
             }
             catch (NoSuchMethodException | SecurityException
                     | InstantiationException | IllegalAccessException
                     | IllegalArgumentException | InvocationTargetException e) {
-                throw new StringContructorException(defaultValue, value, e);
+                throw new StringConstructorException(defaultValue, value, e);
             }
         }
 
-        return (T) defaultValue;
+        return null;
     }
 
     public static class OptionsException extends RuntimeException {
         private static final long serialVersionUID = -9131033143652565410L;
 
-        protected OptionsException(String message, Throwable throwable) {
+        OptionsException(String message, Throwable throwable) {
             super(message, throwable);
         }
     }
@@ -175,16 +174,16 @@ public class OptionsResolver {
 
         public NotANumberException(String key, Character flag,
                 NumberFormatException cause) {
-            super(String.format("Agrument is not a number for --%s resp. -%s",
+            super(String.format("Argument is not a number for --%s resp. -%s",
                     key, flag), cause);
         }
     }
 
-    public static class StringContructorException extends OptionsException {
+    public static class StringConstructorException extends OptionsException {
         private static final long serialVersionUID = 778304971463439217L;
 
-        public StringContructorException(Object defaultValue, String value,
-                Exception cause) {
+        public StringConstructorException(Object defaultValue, String value,
+                                          Exception cause) {
             super(String.format("Could not use 'new %s(\"%s\")': %s",
                     defaultValue.getClass().getName(), value,
                     cause.getMessage()), cause);

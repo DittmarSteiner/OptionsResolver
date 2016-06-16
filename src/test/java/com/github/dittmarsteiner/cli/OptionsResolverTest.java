@@ -283,7 +283,7 @@ public class OptionsResolverTest {
             assertEquals(System.getenv("SYSENV"), p);
         }
         else {
-            System.out.println(String.format("    No system env found: SYSENV", p));
+            System.out.println("    No system env found: SYSENV");
         }
 	}
 }
