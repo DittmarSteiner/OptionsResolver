@@ -71,9 +71,9 @@ public class OptionsResolverTest {
         assertTrue(flag);
     }
 
-	@Test
-	public void testGenericResolver() {
-	    // flag/single char
+    @Test
+    public void testGenericResolver() {
+        // flag/single char
         Object o = OptionsResolver.resolve(null, "ARG", 'a', "-a", "1000.0");
         assertNull(o); // defaultValue was null
         
@@ -284,5 +284,5 @@ public class OptionsResolverTest {
         else {
             System.out.println("    No system env found: SYSENV");
         }
-	}
+    }
 }
