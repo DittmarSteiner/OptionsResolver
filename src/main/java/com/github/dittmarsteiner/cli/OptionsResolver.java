@@ -40,7 +40,7 @@ import java.lang.reflect.InvocationTargetException;
  * @version 1.0
  * @author <a href="mailto:dittmar.steiner@gmail.com">Dittmar Steiner</a>
  */
-public class OptionsResolver<T> {
+public class OptionsResolver {
     
     /**
      * 

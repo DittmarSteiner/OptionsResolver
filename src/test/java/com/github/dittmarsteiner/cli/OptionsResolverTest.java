@@ -77,6 +77,18 @@ public class OptionsResolverTest {
         Object o = OptionsResolver.resolve(null, "ARG", 'a', "-a", "1000.0");
         assertNull(o); // defaultValue was null
         
+        Double dNull = OptionsResolver.<Double>resolve(null, "ARG", 'a', "-a", "1000.0");
+        assertNull(dNull); // defaultValue was null, but type is Double
+        
+        try {
+            @SuppressWarnings("unused")
+            double unboxed = OptionsResolver.<Double>resolve(null, "ARG", 'a', "-a", "1000.0");
+            fail("Excepted NullPointerException from unboxing null");
+        }
+        catch (NullPointerException npe) {
+            // expected
+        }
+        
         Integer port = OptionsResolver.resolve(8080, "PORT", 'p', "-t");
         assertNotNull(port);
         assertEquals(8080, port.intValue()); // no matches, so default value
